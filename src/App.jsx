@@ -6,12 +6,14 @@ import NavBar from "./components/NavBar";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import Repos from "./components/Repos";
 import { API_URL } from "./shared";
 import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 import { auth0Config } from "./auth0-config";
 
 const AppContent = () => {
   const [user, setUser] = useState(null);
+  console.log("user--->", user)
   const [loading, setLoading] = useState(true);
   const {
     isAuthenticated,
@@ -19,7 +21,7 @@ const AppContent = () => {
     loginWithRedirect,
     logout: auth0Logout,
   } = useAuth0();
-
+  console.log("auth user-->", auth0User)
   // Check authentication status on app load
   useEffect(() => {
     checkAuth();
@@ -105,10 +107,11 @@ const AppContent = () => {
         isAuth0Authenticated={isAuthenticated}
       />
       <div className="app">
-        <h1>Hello React!</h1>
-        <img className="react-logo" src="/react-logo.svg" alt="React Logo" />
 
         <Routes>
+          <Route
+            path="/repos"
+            element={<Repos />} />
           <Route
             path="/login"
             element={
@@ -127,7 +130,8 @@ const AppContent = () => {
               <div>
                 {user ? (
                   <div>
-                    <h2>Welcome, {user.username}!</h2>
+                    <h2>Welcome, {auth0User?.name}!</h2>
+                    <img src={auth0User?.picture} alt="flo" />
                     <p>You are logged in.</p>
                     {user.auth0Id && <p>Authenticated via Auth0</p>}
                   </div>
