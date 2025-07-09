@@ -14,6 +14,7 @@ const NavBar = ({ user, onLogout, onAuth0Login }) => {
           <div className="user-section">
             <span className="username">Welcome, {user.username}!</span>
             {user.auth0Id && <span className="auth0-badge">Auth0</span>}
+            <Link to="/repos" className="repo">Repo's</Link>
             <button onClick={onLogout} className="logout-btn">
               Logout
             </button>
