@@ -34,12 +34,15 @@ const AppContent = () => {
 
   const handleAuth0Login = async () => {
     try {
+      console.log("auth0", auth0User);
       const response = await axios.post(
         `${API_URL}/auth/auth0`,
         {
           auth0Id: auth0User.sub,
           email: auth0User.email,
           username: auth0User.nickname || auth0User.email?.split("@")[0],
+          name: auth0User.name,
+          picture: auth0User.picture,
         },
         {
           withCredentials: true,
@@ -127,7 +130,7 @@ const AppContent = () => {
               <div>
                 {user ? (
                   <div>
-                    <h2>Welcome, {user.username}!</h2>
+                    <h2>Welcome, {user.name}!</h2>
                     <p>You are logged in.</p>
                     {user.auth0Id && <p>Authenticated via Auth0</p>}
                   </div>

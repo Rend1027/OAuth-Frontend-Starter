@@ -13,6 +13,8 @@ const NavBar = ({ user, onLogout, onAuth0Login }) => {
         {user ? (
           <div className="user-section">
             <span className="username">Welcome, {user.username}!</span>
+            <span className="name">Welcome, {user.name}!</span>
+            <img className="react-logo" src={user.picture}></img>
             {user.auth0Id && <span className="auth0-badge">Auth0</span>}
             <button onClick={onLogout} className="logout-btn">
               Logout
